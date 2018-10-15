@@ -1,6 +1,12 @@
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+
+
+class PublishedManager(models.Manager):
+    def get_queryset(self):
+        return super(PublishedManager, self).get_queryset().filter(status="published")
 
 
 class Post(models.Model):
@@ -30,6 +36,9 @@ class Post(models.Model):
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
 
 
+    object = models.Manager() # The default manager.
+    published = PublishedManager()
+
     class Meta:
         '''
          contains metadata
@@ -45,6 +54,12 @@ class Post(models.Model):
         of object
         '''
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('blog:post_detail', args=[self.publish.year,
+                                                  self.publish.strftime('%m'),
+                                                  self.publish.strftime('%d'),
+                                                  self.slug])
 
 
 
