@@ -56,10 +56,11 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
+        # This looks through all urls defined in urls.py for the url defined with name='post_detail'
         return reverse('blog:post_detail', args=[self.publish.year,
-                                                  self.publish.strftime('%m'),
-                                                  self.publish.strftime('%d'),
-                                                  self.slug])
+                                                 self.publish.strftime('%m'),
+                                                 self.publish.strftime('%d'),
+                                                 self.slug])
 
 
 

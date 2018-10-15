@@ -9,9 +9,9 @@ def post_list(request):
     # find all posts that have been published
     object_list = Post.published.all()
     paginator = Paginator(object_list, 3) # 3 posts in each page
-    page = request.GET.get('page')
+    page = request.GET.get('page') # indicates current page number
     try:
-        posts = paginator.page(page)
+        posts = paginator.page(page) # obtain objects for design page
     except PageNotAnInteger:
         # If Page is not an integer deliver the first page
         posts = paginator.page(1)
