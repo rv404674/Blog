@@ -2,6 +2,7 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from taggit.managers import TaggableManager
 
 
 class PublishedManager(models.Manager):
@@ -38,6 +39,9 @@ class Post(models.Model):
 
     object = models.Manager() # The default manager.
     published = PublishedManager()
+
+    # Tag Manager will allow you to add, delete remove, tags from post object
+    tags = TaggableManager()
 
     class Meta:
         '''
