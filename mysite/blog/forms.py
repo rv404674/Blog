@@ -18,3 +18,6 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment # will automatically build a form from Comment Model
         fields = ('name', 'email', 'body') # which field you want to display, leave blank if you want to display all
+
+class SearchForm(forms.Form):
+    query = forms.CharField()
